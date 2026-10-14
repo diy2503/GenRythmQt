@@ -1,9 +1,9 @@
-#include "QNote.hpp"
+#include "QNoteImg.hpp"
 #include "CImageBuffer.hpp"
 
-QNote::QNote() {}
+QNoteImg::QNoteImg() {}
 
-void QNote::setNote(CNotePtr p_pNote)
+void QNoteImg::setNote(CNotePtr p_pNote)
 {
     if (p_pNote != nullptr)
     {

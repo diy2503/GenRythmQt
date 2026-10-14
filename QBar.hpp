@@ -3,7 +3,6 @@
 
 #include <QLayout>
 #include <QLabel>
-#include "QNote.hpp"
 #include "CBar.hpp"
 
 class QBar
@@ -12,16 +11,16 @@ public:
     QBar(QLayout* p_pLayout);
     virtual ~QBar(void);
 
-    bool Display(CBarPtr p_pBar) const;
+    virtual bool Display(CBarPtr p_pBar) const = 0;
 
-private:
+protected:
+    vector<QLabel*> m_noteLabelCH;
+    vector<QLabel*> m_noteLabelCC;
+    vector<QLabel*> m_noteLabelGC;
+
     QLayout* m_pLayoutBarCH = nullptr;
     QLayout* m_pLayoutBarCC = nullptr;
     QLayout* m_pLayoutBarGC = nullptr;
-
-    vector<QNote*> m_QnotesCH;
-    vector<QNote*> m_QnotesCC;
-    vector<QNote*> m_QnotesGC;
 };
 
 typedef shared_ptr<QBar> QBarPtr;

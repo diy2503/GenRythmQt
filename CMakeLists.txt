@@ -26,12 +26,11 @@ set(PROJECT_SOURCES
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(GenRythm MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        QPlayer.hpp 
-	QPlayer.cpp
-        QNote.hpp 
-	QNote.cpp
-        QBar.hpp 
-	QBar.cpp
+        QPlayer.hpp     QPlayer.cpp
+        QNoteImg.hpp    QNoteImg.cpp
+        QBar.hpp        QBar.cpp
+        QBarImg.hpp     QBarImg.cpp
+        QBarSquare.hpp  QBarSquare.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET GenRythm APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

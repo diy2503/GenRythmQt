@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "QPlayer.hpp"
-#include "QBar.hpp"
+#include "QBarImg.hpp"
+#include "QBarSquare.hpp"
 #include <fstream>
 #include <QTimer>
 #include <QFileDialog>
@@ -66,7 +67,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->chkLinear->setCheckState(((pattern == ChPattern::LINEAR_HEIGHT) || (pattern == ChPattern::LINEAR_SIXTEEN))? Checked : Unchecked);
 
     // Bar view
-    m_pBarView = make_shared<QBar>(ui->layoutBar);
+    //m_pBarView = make_shared<QBarImg>(ui->layoutBar);
+    m_pBarView = make_shared<QBarSquare>(ui->layoutBar);
 
     updateWidgets();
 }

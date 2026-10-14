@@ -5,20 +5,13 @@
 #include <QSoundEffect>
 #include "CPlayer.hpp"
 
-typedef struct
-{
-    shared_ptr<QSoundEffect> sndFx;
-    string file;
-    float volume;
-} SoundCfg;
-
 
 class QPlayer : public QObject, public CPlayer
 {
     Q_OBJECT
 private:
     explicit QPlayer(QObject *parent = nullptr);
-    virtual ~QPlayer(void);
+    virtual ~QPlayer(void) override;
 
     void initSound(NoteInstr p_instr);
 
@@ -32,9 +25,9 @@ public:
     }
 
     // Overriden inhirited methods
-    virtual bool setStatus(ePlayStatus p_val);
+    virtual bool setStatus(ePlayStatus p_val) override;
 protected:
-    virtual uint32_t playNote(NoteInstr p_notNoteInstr);
+    virtual uint32_t playNote(NoteInstr p_notNoteInstr) override;
 
     std::array<QSoundEffect, (uint8_t)NoteInstr::MAX> m_sounds;
 
