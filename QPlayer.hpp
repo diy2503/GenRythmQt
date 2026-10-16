@@ -28,6 +28,7 @@ public:
     virtual bool setStatus(ePlayStatus p_val) override;
 protected:
     virtual uint32_t playNote(NoteInstr p_notNoteInstr) override;
+    virtual void     posChanged(uint8_t p_pos) override;
 
     std::array<QSoundEffect, (uint8_t)NoteInstr::MAX> m_sounds;
 
@@ -36,6 +37,7 @@ signals:
     void playCC();
     void playGC();
     void playCH();
+    void playerPosChanged(uint8_t p_pos);
 };
 
 #endif // QPLAYER_H

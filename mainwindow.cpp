@@ -31,10 +31,14 @@ MainWindow::MainWindow(QWidget *parent)
     , m_pbar(nullptr)
     , m_pBarView(nullptr)
 {
+    ui->setupUi(this);
+
     // CBar allocation
     m_pbar = make_shared<CBar>();
 
-    ui->setupUi(this);
+    // Bar view
+    //m_pBarView = make_shared<QBarImg>(m_pbar, ui->layoutBar);
+    m_pBarView = make_shared<QBarSquare>(m_pbar, ui->layoutBar);
 
     // UI connections
     connect(ui->btnPlay,        SIGNAL(clicked()),                          this,   SLOT(on_BtnPlay_clicked()));
@@ -58,17 +62,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     // QPlayer connections
     qRegisterMetaType<QPlayer>();
-    connect(&QPlayer::getInstance(),    SIGNAL(statusChanged(ePlayStatus)), this,   SLOT(updateWidgets()));
+    connect(&QPlayer::getInstance(),    SIGNAL(statusChanged(ePlayStatus)), this,               SLOT(updateWidgets()));
+    connect(&QPlayer::getInstance(),    SIGNAL(playerPosChanged(uint8_t)),  m_pBarView.get(),   SLOT(on_playerPosChanged(uint8_t)));
 
     // CH Pattern
     ChPattern pattern = m_pbar->getChPattern();
     ui->rd8Notes->setChecked((pattern == ChPattern::HEIGHT_NOTES) || (pattern == ChPattern::LINEAR_HEIGHT));
     ui->rd16Notes->setChecked((pattern == ChPattern::SIXTEEN_NOTES) || (pattern == ChPattern::LINEAR_SIXTEEN));
     ui->chkLinear->setCheckState(((pattern == ChPattern::LINEAR_HEIGHT) || (pattern == ChPattern::LINEAR_SIXTEEN))? Checked : Unchecked);
-
-    // Bar view
-    //m_pBarView = make_shared<QBarImg>(ui->layoutBar);
-    m_pBarView = make_shared<QBarSquare>(ui->layoutBar);
 
     updateWidgets();
 }
@@ -93,7 +94,7 @@ void MainWindow::updateWidgets()
     m_pbar->toString(str);
     ui->lbBar->setText(QString(str.c_str()));
 
-    m_pBarView->Display(m_pbar);
+    m_pBarView->Display();
 }
 
 void MainWindow::on_BtnPlay_clicked()
@@ -154,7 +155,7 @@ void MainWindow::on_BtnLoad_clicked()
                                                     nullptr,
                                                     FILE_DIALOG_FILTER);
 
-    if (!filename.isNull() && !filename.isEmpty())
+    if (!filename.isNull())
     {
         // Stop playback
         QPlayer::getInstance().Stop();
@@ -177,7 +178,7 @@ void MainWindow::on_BtnSave_clicked()
                                                     nullptr,
                                                     FILE_DIALOG_FILTER);
 
-    if (!filename.isNull() && !filename.isEmpty())
+    if (!filename.isNull())
     {
         // Serialize Bar
         ofstream outFile(filename.toStdString(), ios::binary);

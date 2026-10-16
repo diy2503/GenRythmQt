@@ -3,16 +3,13 @@
 
 #include <QLayout>
 #include <QLabel>
-#include "QNoteImg.hpp"
 #include "QBar.hpp"
 
 class QBarImg : public QBar
 {
 public:
-    explicit QBarImg(QLayout* p_pLayout);
+    explicit QBarImg(const CBarPtr p_pBar, const QLayout* p_pLayout);
     virtual ~QBarImg(void) override;
-
-    bool Display(CBarPtr p_pBar) const override;
 };
 
 typedef shared_ptr<QBarImg> QBarImgPtr;

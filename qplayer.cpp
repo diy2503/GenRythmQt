@@ -99,4 +99,9 @@ uint32_t QPlayer::playNote(NoteInstr p_notNoteInstr)
     return 0;   // asynchronous
 }
 
+void QPlayer::posChanged(uint8_t p_pos)
+{
+    emit playerPosChanged(p_pos);
+}
+
 

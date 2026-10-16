@@ -2,14 +2,14 @@
 #define QNOTE_IMG_HPP
 
 #include <QLabel>
-#include "CNote.hpp"
+#include "QNote.hpp"
 
-class QNoteImg : public QLabel
+class QNoteImg : public QNote
 {
 public:
-    QNoteImg();
+    explicit QNoteImg(QLabel *p_pLabel, QObject *parent = nullptr);
 
-    void setNote(CNotePtr p_pNote);
+    void updateStyle(void) override;
 };
 
 typedef shared_ptr<QNoteImg> QNoteImgPtr;
