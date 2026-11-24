@@ -63,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent)
     // QPlayer connections
     qRegisterMetaType<QPlayer>();
     connect(&QPlayer::getInstance(),    SIGNAL(statusChanged(ePlayStatus)), this,               SLOT(updateWidgets()));
+    connect(&QPlayer::getInstance(),    SIGNAL(playerPosChanged(uint8_t)),  this,               SLOT(on_playerPosChanged(uint8_t)));
     connect(&QPlayer::getInstance(),    SIGNAL(playerPosChanged(uint8_t)),  m_pBarView.get(),   SLOT(on_playerPosChanged(uint8_t)));
 
     // CH Pattern
@@ -90,11 +91,17 @@ void MainWindow::updateWidgets()
     // ui->btnLoad->setEnabled(playerStatus == ePlayStatus_stop);
 
     // Display bar
-    string str;
-    m_pbar->toString(str);
-    ui->lbBar->setText(QString(str.c_str()));
-
     m_pBarView->Display();
+}
+
+void MainWindow::on_playerPosChanged(uint8_t p_pos)
+{
+    if (ui->slider != nullptr)
+    {
+        // QNote width equals 2 positions
+        // Hence the cursor is display at the middle of the QNote
+        ui->slider->setValue(2 * p_pos + 1);
+    }
 }
 
 void MainWindow::on_BtnPlay_clicked()

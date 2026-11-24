@@ -14,12 +14,12 @@ QBar::QBar(const CBarPtr p_pBar, const QLayout* p_pLayout, BarType p_type)
 
     // --- Retrieve widgets
     int l_cnt = p_pLayout->count();
-    assert(l_cnt >= 4);
+    assert(l_cnt == 3);
 
     // Retrieve layout for CH, CC and GC bars
-    m_pLayoutBarCH = p_pLayout->itemAt(1)->layout();
-    m_pLayoutBarCC = p_pLayout->itemAt(2)->layout();
-    m_pLayoutBarGC = p_pLayout->itemAt(3)->layout();
+    m_pLayoutBarCH = p_pLayout->itemAt(0)->layout();
+    m_pLayoutBarCC = p_pLayout->itemAt(1)->layout();
+    m_pLayoutBarGC = p_pLayout->itemAt(2)->layout();
 
     assert(m_pLayoutBarCH != nullptr);
     assert(m_pLayoutBarCC != nullptr);

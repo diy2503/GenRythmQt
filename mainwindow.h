@@ -36,6 +36,7 @@ private slots:
     void on_Rd16Notes_toggled(bool checked);
     void on_ChkLinear_checkStateChanged(const Qt::CheckState &arg1);
 
+    void on_playerPosChanged(uint8_t p_pos);
     void updateWidgets();
 
 private:
